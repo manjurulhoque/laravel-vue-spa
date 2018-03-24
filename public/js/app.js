@@ -43718,7 +43718,15 @@ var render = function() {
             _vm._v(" Posted on " + _vm._s(post.created_at))
           ]),
           _vm._v(" "),
-          _vm._m(2, true),
+          _c("p", [
+            _c("i", { staticClass: "fa fa-tags" }),
+            _vm._v(" Tags:\n                "),
+            _c("a", { attrs: { href: "" } }, [
+              _c("span", { staticClass: "badge badge-info" }, [
+                _vm._v(_vm._s(post.category.name))
+              ])
+            ])
+          ]),
           _vm._v(" "),
           _c("hr"),
           _vm._v(" "),
@@ -43754,30 +43762,6 @@ var staticRenderFns = [
       _c("i", { staticClass: "fa fa-user" }),
       _vm._v(" by "),
       _c("a", { attrs: { href: "" } }, [_vm._v("Super User")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _c("i", { staticClass: "fa fa-tags" }),
-      _vm._v(" Tags: "),
-      _c("a", { attrs: { href: "" } }, [
-        _c("span", { staticClass: "badge badge-info" }, [_vm._v("Bootstrap")])
-      ]),
-      _vm._v(" "),
-      _c("a", { attrs: { href: "" } }, [
-        _c("span", { staticClass: "badge badge-info" }, [_vm._v("Web")])
-      ]),
-      _vm._v(" "),
-      _c("a", { attrs: { href: "" } }, [
-        _c("span", { staticClass: "badge badge-info" }, [_vm._v("CSS")])
-      ]),
-      _vm._v(" "),
-      _c("a", { attrs: { href: "" } }, [
-        _c("span", { staticClass: "badge badge-info" }, [_vm._v("HTML")])
-      ])
     ])
   }
 ]

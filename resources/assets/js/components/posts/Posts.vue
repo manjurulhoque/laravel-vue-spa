@@ -15,11 +15,11 @@
                 </p>
                 <hr>
                 <p><i class="fa fa-calendar"></i> Posted on {{ post.created_at }}</p>
-                <p><i class="fa fa-tags"></i> Tags: <a href=""><span class="badge badge-info">Bootstrap</span></a>
-                    <a
-                            href=""><span class="badge badge-info">Web</span></a> <a href=""><span
-                            class="badge badge-info">CSS</span></a>
-                    <a href=""><span class="badge badge-info">HTML</span></a>
+                <p>
+                    <i class="fa fa-tags"></i> Tags:
+                    <a href="">
+                        <span class="badge badge-info">{{ post.category.name }}</span>
+                    </a>
                 </p>
 
                 <hr>
