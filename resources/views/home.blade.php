@@ -11,7 +11,10 @@
 </head>
 <body>
 <div id="app">
-    <home></home>
+    <navbar></navbar>
+    <div class="container">
+        <router-view></router-view>
+    </div>
 </div>
 
 <script src="{{ asset('js/app.js') }}"></script>

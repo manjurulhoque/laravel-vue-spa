@@ -1,9 +1,6 @@
 <template>
     <div>
-        <navbar></navbar>
-        <div class="container">
-            <Posts></Posts>
-        </div>
+        <Posts></Posts>
     </div>
 </template>
 

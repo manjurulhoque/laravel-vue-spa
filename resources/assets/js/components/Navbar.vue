@@ -5,7 +5,7 @@
                 <a class="navbar-brand" href="#">Lara-vue-blog</a>
             </div>
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
+                <li class="active"><router-link to="/">Home</router-link></li>
                 <li><a href="#">Create Post</a></li>
             </ul>
         </div>

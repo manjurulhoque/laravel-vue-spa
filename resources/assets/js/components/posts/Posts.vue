@@ -6,16 +6,6 @@
             </div>
         </div>
         <div class="row">
-            <!--<tr v-for="(post, index) in posts">-->
-            <!--<th>@{{ post.title }}</th>-->
-            <!--<td></td>-->
-            <!--<td></td>-->
-            <!--<td></td>-->
-            <!--<td>-->
-            <!--<a href="" class="btn btn-success">View</a>-->
-            <!--<a href="" class="btn btn-primary">Edit</a></td>-->
-            <!--</tr>-->
-            <!-- the actual blog post: title/author/date/content -->
             <div class="col-md-12" v-for="(post, index) in posts">
                 <h1><a href="">{{ post.title }}</a></h1>
                 <p class="lead"><i class="fa fa-user"></i> by <a href="">Super User</a>
