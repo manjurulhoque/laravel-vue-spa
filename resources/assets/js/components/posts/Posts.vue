@@ -7,7 +7,9 @@
         </div>
         <div class="row">
             <div class="col-md-12" v-for="(post, index) in posts">
-                <h1><a href="">{{ post.title }}</a></h1>
+                <h1>
+                    <router-link :to="{ name: 'single-post', params: { id: post.id, post: post }}">{{ post.title }}</router-link>
+                </h1>
                 <p class="lead"><i class="fa fa-user"></i> by <a href="">Super User</a>
                 </p>
                 <hr>

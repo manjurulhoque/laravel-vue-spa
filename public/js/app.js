@@ -43568,6 +43568,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 var url = 'http://localhost:8000/api/v1/';
@@ -43604,9 +43606,24 @@ var render = function() {
       { staticClass: "row" },
       _vm._l(_vm.posts, function(post, index) {
         return _c("div", { staticClass: "col-md-12" }, [
-          _c("h1", [
-            _c("a", { attrs: { href: "" } }, [_vm._v(_vm._s(post.title))])
-          ]),
+          _c(
+            "h1",
+            [
+              _c(
+                "router-link",
+                {
+                  attrs: {
+                    to: {
+                      name: "single-post",
+                      params: { id: post.id, post: post }
+                    }
+                  }
+                },
+                [_vm._v(_vm._s(post.title))]
+              )
+            ],
+            1
+          ),
           _vm._v(" "),
           _vm._m(1, true),
           _vm._v(" "),
@@ -43705,6 +43722,9 @@ if (false) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__(62);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Home_vue__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Home_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_Home_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_posts_SinglePost_vue__ = __webpack_require__(63);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_posts_SinglePost_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_posts_SinglePost_vue__);
+
 
 
 
@@ -43716,8 +43736,13 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
         path: '/',
         name: 'Home',
         component: __WEBPACK_IMPORTED_MODULE_2__components_Home_vue___default.a
-    }],
-    mode: 'history'
+    }, {
+        path: '/posts/:id',
+        name: 'single-post',
+        props: true,
+        component: __WEBPACK_IMPORTED_MODULE_3__components_posts_SinglePost_vue___default.a
+    }]
+    // mode: 'history' // it's not working..why?
 }));
 
 /***/ }),
@@ -46349,6 +46374,185 @@ if (inBrowser && window.Vue) {
 
 /* harmony default export */ __webpack_exports__["a"] = (VueRouter);
 
+
+/***/ }),
+/* 63 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(64)
+/* template */
+var __vue_template__ = __webpack_require__(65)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\posts\\SinglePost.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-06e10ba8", Component.options)
+  } else {
+    hotAPI.reload("data-v-06e10ba8", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 64 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            post: null
+        };
+    },
+    created: function created() {
+        if (this.$route.params.post === undefined) {
+            this.$router.push({ name: '/' });
+        }
+        this.post = this.$route.params.post;
+    }
+});
+
+/***/ }),
+/* 65 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "single-post" }, [
+    _c("h1", [_vm._v("\n        " + _vm._s(_vm.post.title) + "\n    ")]),
+    _vm._v(" "),
+    _vm._m(0),
+    _vm._v(" "),
+    _c("hr"),
+    _vm._v(" "),
+    _vm._m(1),
+    _vm._v(" "),
+    _vm._m(2),
+    _vm._v(" "),
+    _c("hr"),
+    _vm._v(" "),
+    _c("img", {
+      staticClass: "img-responsive",
+      attrs: { src: "http://placehold.it/900x300" }
+    }),
+    _vm._v(" "),
+    _c("hr"),
+    _vm._v(" "),
+    _c("p", [_vm._v(_vm._s(_vm.post.body))]),
+    _vm._v(" "),
+    _c("br")
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "lead" }, [
+      _c("i", { staticClass: "fa fa-user" }),
+      _vm._v(" by "),
+      _c("a", { attrs: { href: "" } }, [_vm._v("Super User")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", [
+      _c("i", { staticClass: "fa fa-calendar" }),
+      _vm._v(" Posted on August 24, 2014 at 9:00 PM")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", [
+      _c("i", { staticClass: "fa fa-tags" }),
+      _vm._v(" Tags: "),
+      _c("a", { attrs: { href: "" } }, [
+        _c("span", { staticClass: "badge badge-info" }, [_vm._v("Bootstrap")])
+      ]),
+      _vm._v(" "),
+      _c("a", { attrs: { href: "" } }, [
+        _c("span", { staticClass: "badge badge-info" }, [_vm._v("Web")])
+      ]),
+      _vm._v(" "),
+      _c("a", { attrs: { href: "" } }, [
+        _c("span", { staticClass: "badge badge-info" }, [_vm._v("CSS")])
+      ]),
+      _vm._v(" "),
+      _c("a", { attrs: { href: "" } }, [
+        _c("span", { staticClass: "badge badge-info" }, [_vm._v("HTML")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-06e10ba8", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
