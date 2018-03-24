@@ -21,7 +21,7 @@ class CategoryController extends Controller
 
     public function show(Category $category)
     {
-        //
+        return response()->json(['category' => $category, 'posts' => $category->posts], 200);
     }
 
     public function edit(Category $category)

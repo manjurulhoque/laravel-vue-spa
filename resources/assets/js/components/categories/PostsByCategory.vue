@@ -2,7 +2,7 @@
     <div>
         <div class="row">
             <div class="col-md-10">
-                <h1>All posts</h1>
+                <h1>All posts related to {{ category.name }}</h1>
             </div>
         </div>
         <div class="row">
@@ -16,12 +16,6 @@
                 </p>
                 <hr>
                 <p><i class="fa fa-calendar"></i> Posted on {{ post.created_at }}</p>
-                <p>
-                    <i class="fa fa-tags"></i> Tags:
-                    <router-link :to="{ name: 'categories-show', params: { id: post.category.id, category: post.category }}">
-                        <span class="badge badge-info">{{ post.category.name }}</span>
-                    </router-link>
-                </p>
 
                 <hr>
                 <img src="http://placehold.it/900x300" class="img-responsive">
@@ -34,23 +28,21 @@
 </template>
 
 <script>
-    import axios from 'axios';
     const url = 'http://localhost:8000/api/v1/';
     export default {
         data() {
             return {
-                posts: {}
+                posts: {},
+                category: {}
             }
         },
         created() {
-            axios.get(url + 'posts')
-                .then(response => {
-                    this.posts = response.data;
+            axios.get(url + `categories/${this.$route.params.id}`)
+                .then(res => {
+                    this.posts = res.data.posts;
+                    this.category = res.data.category;
                 })
-                .catch(error => {
-                    console.log(error)
-                });
+                .catch(err => console.log(err));
         },
-        computed: {}
     }
 </script>
