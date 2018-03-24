@@ -13,6 +13,15 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
+                        <select class="form-control" name="category_id" v-model="category_id" required>
+                            <option v-for="(cat, index) in categories" :value="cat.id">{{ cat.name }}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
                         <textarea class="form-control textarea" rows="3" v-model="body" name="body" id="Message"
                                   placeholder="Body"></textarea>
                     </div>
@@ -34,12 +43,17 @@
         data() {
             return {
                 title: '',
-                body: ''
+                body: '',
+                category_id: 1,
+                categories: {}
             }
+        },
+        created() {
+            this.fetchCategories();
         },
         methods: {
             onSubmit() {
-                axios.post(url + 'posts', {title: this.title, body: this.body})
+                axios.post(url + 'posts', {title: this.title, body: this.body, category_id: this.category_id})
                     .then(response => {
                         this.$router.push({name: 'Home'});
                     })
@@ -48,6 +62,11 @@
             clearFields() {
                 this.title = '';
                 this.body = '';
+            },
+            fetchCategories() {
+                axios.get(url + 'categories')
+                    .then(res => this.categories = res.data)
+                    .catch(err => console.log(err))
             }
         }
     }

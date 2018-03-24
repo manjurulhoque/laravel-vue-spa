@@ -14,11 +14,6 @@ class CategoryController extends Controller
         return response()->json($categories, 200);
     }
 
-    public function create()
-    {
-        //
-    }
-
     public function store(Request $request)
     {
         //

@@ -34,7 +34,8 @@ class PostController extends Controller
     {
         $rules = [
             'title' => 'required',
-            'body' => 'required'
+            'body' => 'required',
+            'category_id' => 'required'
         ];
 
         $this->validate($request, $rules);

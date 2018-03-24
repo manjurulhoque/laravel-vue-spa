@@ -46749,6 +46749,48 @@ var render = function() {
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-md-12" }, [
             _c("div", { staticClass: "form-group" }, [
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.category_id,
+                      expression: "category_id"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { name: "category_id", required: "" },
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.category_id = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    }
+                  }
+                },
+                _vm._l(_vm.categories, function(cat, index) {
+                  return _c("option", { domProps: { value: cat.id } }, [
+                    _vm._v(_vm._s(cat.name))
+                  ])
+                })
+              )
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-md-12" }, [
+            _c("div", { staticClass: "form-group" }, [
               _c("textarea", {
                 directives: [
                   {
@@ -47147,6 +47189,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 var url = 'http://localhost:8000/api/v1/';
 
@@ -47154,15 +47205,20 @@ var url = 'http://localhost:8000/api/v1/';
     data: function data() {
         return {
             title: '',
-            body: ''
+            body: '',
+            category_id: 1,
+            categories: {}
         };
+    },
+    created: function created() {
+        this.fetchCategories();
     },
 
     methods: {
         onSubmit: function onSubmit() {
             var _this = this;
 
-            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post(url + 'posts', { title: this.title, body: this.body }).then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post(url + 'posts', { title: this.title, body: this.body, category_id: this.category_id }).then(function (response) {
                 _this.$router.push({ name: 'Home' });
             }).catch(function (error) {
                 return console.log(error);
@@ -47171,6 +47227,15 @@ var url = 'http://localhost:8000/api/v1/';
         clearFields: function clearFields() {
             this.title = '';
             this.body = '';
+        },
+        fetchCategories: function fetchCategories() {
+            var _this2 = this;
+
+            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get(url + 'categories').then(function (res) {
+                return _this2.categories = res.data;
+            }).catch(function (err) {
+                return console.log(err);
+            });
         }
     }
 });
