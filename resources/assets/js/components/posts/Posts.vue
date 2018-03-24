@@ -8,12 +8,13 @@
         <div class="row">
             <div class="col-md-12" v-for="(post, index) in posts">
                 <h1>
-                    <router-link :to="{ name: 'single-post', params: { id: post.id, post: post }}">{{ post.title }}</router-link>
+                    <router-link :to="{ name: 'single-post', params: { id: post.id, post: post }}">{{ post.title }}
+                    </router-link>
                 </h1>
                 <p class="lead"><i class="fa fa-user"></i> by <a href="">Super User</a>
                 </p>
                 <hr>
-                <p><i class="fa fa-calendar"></i> Posted on August 24, 2014 at 9:00 PM</p>
+                <p><i class="fa fa-calendar"></i> Posted on {{ post.created_at }}</p>
                 <p><i class="fa fa-tags"></i> Tags: <a href=""><span class="badge badge-info">Bootstrap</span></a>
                     <a
                             href=""><span class="badge badge-info">Web</span></a> <a href=""><span
@@ -40,15 +41,15 @@
                 posts: {}
             }
         },
-        mounted() {
+        created() {
             axios.get(url + 'posts')
                 .then(response => {
-                    this.posts = response.data
-
+                    this.posts = response.data;
                 })
                 .catch(error => {
                     console.log(error)
-                })
-        }
+                });
+        },
+        computed: {}
     }
 </script>

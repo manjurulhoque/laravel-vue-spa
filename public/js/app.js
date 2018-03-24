@@ -43651,6 +43651,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 var url = 'http://localhost:8000/api/v1/';
@@ -43660,7 +43661,7 @@ var url = 'http://localhost:8000/api/v1/';
             posts: {}
         };
     },
-    mounted: function mounted() {
+    created: function created() {
         var _this = this;
 
         __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get(url + 'posts').then(function (response) {
@@ -43668,7 +43669,9 @@ var url = 'http://localhost:8000/api/v1/';
         }).catch(function (error) {
             console.log(error);
         });
-    }
+    },
+
+    computed: {}
 });
 
 /***/ }),
@@ -43700,7 +43703,7 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v(_vm._s(post.title))]
+                [_vm._v(_vm._s(post.title) + "\n                ")]
               )
             ],
             1
@@ -43710,9 +43713,12 @@ var render = function() {
           _vm._v(" "),
           _c("hr"),
           _vm._v(" "),
-          _vm._m(2, true),
+          _c("p", [
+            _c("i", { staticClass: "fa fa-calendar" }),
+            _vm._v(" Posted on " + _vm._s(post.created_at))
+          ]),
           _vm._v(" "),
-          _vm._m(3, true),
+          _vm._m(2, true),
           _vm._v(" "),
           _c("hr"),
           _vm._v(" "),
@@ -43748,15 +43754,6 @@ var staticRenderFns = [
       _c("i", { staticClass: "fa fa-user" }),
       _vm._v(" by "),
       _c("a", { attrs: { href: "" } }, [_vm._v("Super User")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _c("i", { staticClass: "fa fa-calendar" }),
-      _vm._v(" Posted on August 24, 2014 at 9:00 PM")
     ])
   },
   function() {
