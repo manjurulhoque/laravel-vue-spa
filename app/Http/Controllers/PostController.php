@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Image;
+use Validator;
 
 class PostController extends Controller
 {
@@ -32,16 +35,36 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $rules = [
+        $validator = Validator::make($request->all(), [
             'title' => 'required',
             'body' => 'required',
-            'category_id' => 'required'
-        ];
+            'category_id' => 'required',
+            'image' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()]);
+        }
+        $post = new Post;
 
-        $this->validate($request, $rules);
+        $post->title = $request->title;
+        $post->body = $request->body;
+        $post->category_id = $request->category_id;
 
-        $post = Post::create($request->all());
+        if ($request->get('image')) {
+            $image = $request->get('image');
+            $filename = Carbon::now()->timestamp . '_' . uniqid() . '.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
+            $location = public_path('posts/images/' . $filename);
+            Image::make($image)->resize(800, 400)->save($location);
+            $post->image = $filename;
+        }
 
+        $post->save();
+//        if ($request->get('image')) {
+//            $image = $request->get('image');
+//            return response()->json(['name' => $request->file('image')->getClientOriginalName()], 201);
+//        } else {
+//            return response()->json(['error' => 'no image'], 201);
+//        }
         return response()->json($post, 201);
     }
 

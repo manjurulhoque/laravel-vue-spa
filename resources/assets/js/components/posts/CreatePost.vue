@@ -1,6 +1,7 @@
 <template>
     <div class="create-post">
-        <form role="form" @submit.prevent="onSubmit" id="contact-form" class="contact-form">
+        <form role="form" @submit.prevent="onSubmit" id="contact-form" class="contact-form"
+              enctype="multipart/form-data">
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
@@ -19,6 +20,15 @@
                     </div>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input type="file" accept="image/*" ref="file" class="form-control" @change="onFileChange">
+                    </div>
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
@@ -44,6 +54,7 @@
             return {
                 title: '',
                 body: '',
+                image: '',
                 category_id: 1,
                 categories: {}
             }
@@ -52,10 +63,31 @@
             this.fetchCategories();
         },
         methods: {
+            onFileChange(e) {
+                let files = e.target.files || e.dataTransfer.files;
+                if (!files.length)
+                    return;
+                this.createImage(files[0]);
+            },
+            createImage(file) {
+                let reader = new FileReader();
+                let vm = this;
+                reader.onload = (e) => {
+                    vm.image = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            },
             onSubmit() {
-                axios.post(url + 'posts', {title: this.title, body: this.body, category_id: this.category_id})
-                    .then(response => {
-                        this.$router.push({name: 'Home'});
+                axios.post(url + 'posts', {
+                    title: this.title,
+                    body: this.body,
+                    category_id: this.category_id,
+                    image: this.image
+                })
+                    .then(res => {
+                        if (!res.data.errors) {
+                            this.$router.push({name: 'Home'});
+                        }
                     })
                     .catch((error) => console.log(error))
             },

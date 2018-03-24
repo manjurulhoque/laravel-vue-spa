@@ -24,7 +24,7 @@
                 </p>
 
                 <hr>
-                <img src="http://placehold.it/900x300" class="img-responsive">
+                <img :src="post.image" class="img-responsive">
                 <hr>
                 <p>{{ post.body }}</p>
                 <br/>
