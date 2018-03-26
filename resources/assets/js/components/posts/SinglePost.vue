@@ -24,7 +24,7 @@
         <hr>
         <p>{{ post.body }}</p>
         <br/>
-        <create-comment></create-comment>
+        <create-comment :id="post.id"></create-comment>
     </div>
 </template>
 
@@ -33,12 +33,12 @@
     export default {
         data() {
             return {
-                post: {}
+                post: ''
             }
         },
         created() {
             if (this.$route.params.post === undefined) {
-                this.$router.push({name: '/'});
+                this.$router.push({name: 'Home'});
             }
             this.post = this.$route.params.post;
         },

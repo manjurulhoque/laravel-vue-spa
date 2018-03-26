@@ -13,7 +13,7 @@ Route::group(['middleware' => 'api', 'prefix' => 'v1'], function () {
     Route::resource('categories', 'CategoryController', ['except' => ['create',]]);
 
     // comments
-    Route::post('comments/{post_id}', ['uses' => 'CommentsController@store', 'as' => 'comments.store']);
+    Route::post('comments/{post_id}', ['uses' => 'CommentController@store', 'as' => 'comments.store']);
 });
 
 

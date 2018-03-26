@@ -1,8 +1,8 @@
 <template>
     <div class="row">
 
-        <div class="col-md-6">
-            <form>
+        <div class="col-md-7">
+            <form @submit.prevent="onSubmit">
                 <div class="form-group">
                     <input type="text" class="form-control" v-model="name" name="name" autocomplete="off"
                            id="name"
@@ -17,7 +17,7 @@
                         <textarea class="form-control textarea" rows="3" v-model="comment" name="comment" id="comment"
                                   placeholder="comment"></textarea>
                 </div>
-                <button type="submit" class="btn btn-success green"><i class="fa fa-share"></i> Share</button>
+                <button type="submit" class="btn btn-success green"><i class="fa fa-share"></i> Create comment</button>
             </form>
         </div>
 
@@ -29,11 +29,24 @@
     import axios from 'axios';
 
     export default {
+        props: ['id'],
         data() {
             return {
                 comment: '',
                 name: '',
                 email: ''
+            }
+        },
+        methods: {
+            onSubmit() {
+                axios.post(url + `comments/${this.id}`, {name: this.name, email: this.email, comment: this.comment})
+                    .then(res => {
+                        console.log(res);
+                        //this.$router.push({name: 'single-post'});
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })
             }
         }
     }
