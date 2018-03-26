@@ -14,9 +14,13 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($post_id)
     {
-        //
+        $post = Post::find($post_id);
+
+        $comments = $post->comments;
+
+        return response()->json($comments, 201);
     }
 
     /**
