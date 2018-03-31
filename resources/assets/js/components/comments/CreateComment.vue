@@ -41,8 +41,12 @@
             onSubmit() {
                 axios.post(url + `comments/${this.id}`, {name: this.name, email: this.email, comment: this.comment})
                     .then(res => {
-                        console.log(res);
-                        //this.$router.push({name: 'single-post'});
+                        this.$router.push(
+                            {
+                                name: 'single-post',
+                                params: {id: this.id},
+                            });
+                        this.$parent.$options.methods.fetchComments(this.id);
                     })
                     .catch(err => {
                         console.log(err);

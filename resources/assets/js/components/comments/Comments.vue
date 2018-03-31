@@ -1,27 +1,64 @@
 <template>
-    <div class="comments-container">
-        <h1>Comments ({{ comments.length }}) </h1>
-
-        <ul id="comments-list" class="comments-list">
-            <li v-for="(comment, index) in comments" :key="index">
-                <div class="comment-main-level">
-                    <div class="comment-avatar">
-                        <img src="https://i9.photobucket.com/albums/a88/creaticode/avatar_1_zps8e1c80cd.jpg" alt="">
-                    </div>
-                    <div class="comment-box">
-                        <div class="comment-head">
-                            <h6 class="comment-name by-author">
-                                <a href="http://creaticode.com/blog">{{ comment.name }}</a>
-                            </h6>
-                            <span>{{ comment.created_at }}</span>
-                            <i class="fa fa-reply"></i>
-                            <i class="fa fa-heart"></i>
+    <div>
+        <div class="comments-container">
+            <h1>Comments ({{ comments.length }}) </h1>
+            <ul id="comments-list" class="comments-list">
+                <li v-for="(comment, index) in comments" :key="index">
+                    <div class="comment-main-level">
+                        <div class="comment-avatar">
+                            <img src="https://i9.photobucket.com/albums/a88/creaticode/avatar_1_zps8e1c80cd.jpg" alt="">
                         </div>
-                        <div class="comment-content">{{ comment.comment }}</div>
+                        <div class="comment-box">
+                            <div class="comment-head">
+                                <h6 class="comment-name by-author">
+                                    <a href="http://creaticode.com/blog">{{ comment.name }}</a>
+                                </h6>
+                                <span>{{ comment.created_at }}</span>
+                                <i class="fa fa-reply"></i>
+                                <i class="fa fa-heart"></i>
+                            </div>
+                            <div class="comment-content">{{ comment.comment }}</div>
+                        </div>
                     </div>
-                </div>
-            </li>
-        </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-md-7">
+                <form @submit.prevent="onSubmit">
+                    <div class="form-group">
+                        <input type="text"
+                               class="form-control"
+                               v-model="name"
+                               name="name"
+                               autocomplete="off"
+                               id="name"
+                               placeholder="name">
+                    </div>
+                    <div class="form-group">
+                        <input type="email"
+                               class="form-control"
+                               v-model="email"
+                               name="email"
+                               autocomplete="off"
+                               id="email"
+                               placeholder="email">
+                    </div>
+                    <div class="form-group">
+                        <textarea
+                                class="form-control textarea"
+                                rows="3"
+                                v-model="comment"
+                                name="comment"
+                                id="comment"
+                                placeholder="comment">
+                        </textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success green"><i class="fa fa-share"></i> Create comment
+                    </button>
+                </form>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -33,13 +70,33 @@
         props: ['id'],
         data() {
             return {
-                comments: ''
+                comments: '',
+                comment: '',
+                name: '',
+                email: ''
             }
         },
         created() {
             this.fetchComments();
         },
         methods: {
+            onSubmit() {
+                axios.post(url + `comments/${this.id}`, {name: this.name, email: this.email, comment: this.comment})
+                    .then(res => {
+                        this.$router.push(
+                            {
+                                name: 'single-post',
+                                params: {id: this.id},
+                            });
+                        this.name = '';
+                        this.email = '';
+                        this.comment = '';
+                        this.fetchComments();
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })
+            },
             fetchComments() {
                 axios.get(url + `comments/${this.id}`)
                     .then(response => {

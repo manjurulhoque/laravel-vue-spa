@@ -25,12 +25,10 @@
         <p>{{ post.body }}</p>
         <br/>
         <comments :id="post.id"></comments>
-        <create-comment :id="post.id"></create-comment>
     </div>
 </template>
 
 <script>
-    import CreateComment from '../comments/CreateComment.vue';
     import Comments from '../comments/Comments.vue';
     export default {
         data() {
@@ -45,8 +43,14 @@
             this.post = this.$route.params.post;
         },
         components: {
-            CreateComment,
             comments: Comments
+        },
+        methods: {
+            reloadComments() {
+                console.log('children');
+                console.log(this.$children);
+//                console.log(this.$children[1].$options.methods);
+            }
         }
     }
 </script>
