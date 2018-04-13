@@ -6,10 +6,18 @@ use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Image;
+use JWTAuth;
 use Validator;
 
 class PostController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('auth.jwt', ['except' => [
+            'index'
+        ]]);
+    }
+
     public function index()
     {
         $posts = Post::with('category')->get();
@@ -35,6 +43,9 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+//        if(!$user = JWTAuth::parseToken()->authenticate()) {
+//            return response()->json(['message' => 'User not found'], 401);
+//        }
         $validator = Validator::make($request->all(), [
             'title' => 'required',
             'body' => 'required',
@@ -44,6 +55,7 @@ class PostController extends Controller
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()]);
         }
+        $user = JWTAuth::parseToken()->toUser();
         $post = new Post;
 
         $post->title = $request->title;

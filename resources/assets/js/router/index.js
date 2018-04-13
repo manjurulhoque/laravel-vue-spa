@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import Home from '../components/Home.vue'
 import SinglePost from '../components/posts/SinglePost.vue'
 import CreatePost from '../components/posts/CreatePost.vue'
+import Signup from '../components/auth/Signup.vue'
+import Signin from '../components/auth/Signin.vue'
 import PostsByCategory from '../components/categories/PostsByCategory.vue'
 
 Vue.use(Router);
@@ -13,6 +15,16 @@ export default new Router({
             path: '/',
             name: 'Home',
             component: Home
+        },
+        {
+            path: '/signup',
+            name: 'signup',
+            component: Signup
+        },
+        {
+            path: '/signin',
+            name: 'signin',
+            component: Signin
         },
         {
             path: '/posts/create',

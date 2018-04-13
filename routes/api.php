@@ -7,8 +7,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['middleware' => 'api', 'prefix' => 'v1'], function () {
+
+    //auth
+    Route::post('/signup', 'UserController@signup');
+    Route::post('/signin', 'UserController@signin');
+
     // posts
     Route::resource('posts', 'PostController', ['except' => ['create',]]);
+
     // categories
     Route::resource('categories', 'CategoryController', ['except' => ['create',]]);
 

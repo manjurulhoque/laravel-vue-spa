@@ -78,7 +78,8 @@
                 reader.readAsDataURL(file);
             },
             onSubmit() {
-                axios.post(url + 'posts', {
+                const token = localStorage.getItem('token');
+                axios.post(url + 'posts?token=' + token, {
                     title: this.title,
                     body: this.body,
                     category_id: this.category_id,
